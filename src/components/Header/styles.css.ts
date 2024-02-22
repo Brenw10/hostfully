@@ -3,7 +3,6 @@ import { style } from "@vanilla-extract/css";
 export const container = style({
   border: '1px solid rgb(235, 237, 240)',
   padding: '1rem 2rem',
-  marginBottom: '1rem',
 });
 
 export const title = style({

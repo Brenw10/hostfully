@@ -1,11 +1,10 @@
-import Header from "../../components/Header";
+import BaseLayout from "../../components/BaseLayout";
 
 const HomePage = () => {
   return (
-    <>
-      <Header />
+    <BaseLayout>
       HomePage
-    </>
+    </BaseLayout>
   );
 };
 

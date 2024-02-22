@@ -1,16 +1,15 @@
 import { Flex, Typography } from 'antd';
-import Header from '../../components/Header';
+import BaseLayout from '../../components/BaseLayout';
 
 const NotFoundPage = () => {
   return (
-    <>
-      <Header />
+    <BaseLayout>
       <Flex vertical align='center'>
         <Typography.Text>
           Sorry, this page does not exist.
         </Typography.Text>
       </Flex>
-    </>
+    </BaseLayout>
   )
 };
 
