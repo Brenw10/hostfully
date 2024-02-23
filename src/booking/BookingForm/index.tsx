@@ -30,9 +30,12 @@ const BookingForm = ({ className = '', onCancel, onSubmitted, booking }: TBookin
 
   const disableDate = (current: Dayjs) => {
     const isPreviousDates = current < dayjs().endOf('day');
+
+    const isDatesBeingEdited = booking && current.isBetween(...booking.dates, 'day', '[]');
+
     const isOverlapping = bookings.some(booking => current.isBetween(...booking.dates, 'day', '[]'));
 
-    return isPreviousDates || isOverlapping;
+    return isPreviousDates || (!isDatesBeingEdited && isOverlapping);
   };
 
   return (
