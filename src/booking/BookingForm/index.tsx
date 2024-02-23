@@ -23,7 +23,11 @@ const BookingForm = ({ className = '', onCancel, onSubmitted, booking }: TBookin
   const { dispatch, bookings } = useBookings();
 
   const onSubmit = (form: TBooking) => {
-    dispatch({ type: 'ADD', payload: { ...form, id: nanoid() } });
+    if (booking) {
+      dispatch({ type: 'UPDATE', payload: form });
+    } else {
+      dispatch({ type: 'ADD', payload: { ...form, id: nanoid() } });
+    }
     reset();
     onSubmitted(form);
   };

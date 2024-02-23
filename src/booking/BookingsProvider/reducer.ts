@@ -10,6 +10,8 @@ const BookingsReducer = (state: TBooking[], action: TAction) => {
   switch (action.type) {
     case ACTIONS.ADD:
       return [...state, action.payload];
+    case ACTIONS.UPDATE:
+      return state.map(booking => booking.id === action.payload.id ? action.payload : booking);
     case ACTIONS.REMOVE:
       return state.filter(booking => booking.id !== action.payload.id);
     default:
