@@ -8,12 +8,12 @@ type TBaseLayout = {
 
 const BaseLayout = ({ className = '', children }: TBaseLayout) => {
   return (
-    <>
+    <div className={styles.container}>
       <Header />
       <div className={`${styles.content} ${className}`}>
         {children}
       </div>
-    </>
+    </div>
   );
 };
 

@@ -9,22 +9,24 @@ const ManageBookingPage = () => {
   const onCancel = () => navigate(-1);
 
   return (
-    <BaseLayout className={styles.container}>
-      <Card title='Create a booking' classNames={{ header: styles.titleContainer }}>
-        <Flex vertical gap='middle'>
-          <Input placeholder="Property name" />
-          <DatePicker.RangePicker />
-          <Flex gap='middle'>
-            <Button type="default" className={styles.button} onClick={onCancel}>
-              Cancel
-            </Button>
-            <Button type="primary" className={styles.button}>
-              Submit
-            </Button>
+    <BaseLayout>
+      <div className={styles.container}>
+        <Card title='Create a booking' classNames={{ header: styles.titleContainer }}>
+          <Flex vertical gap='middle'>
+            <Input placeholder="Property name" />
+            <DatePicker.RangePicker />
+            <Flex gap='middle'>
+              <Button type="default" className={styles.button} onClick={onCancel}>
+                Cancel
+              </Button>
+              <Button type="primary" className={styles.button}>
+                Submit
+              </Button>
+            </Flex>
           </Flex>
-        </Flex>
-      </Card>
-    </BaseLayout >
+        </Card>
+      </div>
+    </BaseLayout>
   );
 };
 
