@@ -1,13 +1,15 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import HomePage from "./pages/Home";
 import NotFoundPage from "./pages/NotFound";
-import CreateBooking from "./pages/CreateBooking";
+import CreateBookingPage from "./pages/CreateBooking";
 import ThemeProvider from "./providers/ThemeProvider";
 import BookingsProvider from "./booking/BookingsProvider";
+import EditBookingPage from "./pages/EditBooking";
 
 const router = createBrowserRouter([
   { path: '/', element: <HomePage /> },
-  { path: '/booking', element: <CreateBooking /> },
+  { path: '/booking', element: <CreateBookingPage /> },
+  { path: '/booking/:id', element: <EditBookingPage /> },
   { path: '*', element: <NotFoundPage /> },
 ]);
 
