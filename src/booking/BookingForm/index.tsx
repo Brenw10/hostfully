@@ -2,20 +2,16 @@ import { Button, Card, DatePicker, Flex, Input } from "antd";
 import * as styles from './styles.css';
 import { Controller, useForm } from "react-hook-form";
 import UnderFieldError from "../../components/UnderFieldError";
+import { TBooking } from "../types";
 
-type TBookingFormProps = {
+type TBookingForm = {
   onCancel: () => void;
 };
 
-type TBookingForm = {
-  property: string;
-  dates: [Date, Date];
-};
+const BookingForm = ({ onCancel }: TBookingForm) => {
+  const { handleSubmit, formState: { errors }, control } = useForm<TBooking>();
 
-const BookingForm = ({ onCancel }: TBookingFormProps) => {
-  const { handleSubmit, formState: { errors }, control } = useForm<TBookingForm>();
-
-  const onSubmit = (form: TBookingForm) => {
+  const onSubmit = (form: TBooking) => {
     console.log(form)
   };
 

@@ -1,5 +1,4 @@
 export type TBooking = {
-  name: string;
-  startDate: Date;
-  endDate: Date;
+  property: string;
+  dates: [Date, Date];
 };
