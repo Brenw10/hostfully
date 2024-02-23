@@ -1,4 +1,6 @@
+import { Dayjs } from "dayjs";
+
 export type TBooking = {
   property: string;
-  dates: [Date, Date];
+  dates: [Dayjs, Dayjs];
 };

@@ -4,19 +4,32 @@ import { Controller, useForm } from "react-hook-form";
 import { TBooking } from "../types";
 import { useBookings } from "../BookingsProvider/context";
 import InputLabel from "../../components/InputLabel";
+import dayjs, { Dayjs } from "dayjs";
+import isBetween from 'dayjs/plugin/isBetween';
+
+dayjs.extend(isBetween);
 
 type TBookingForm = {
   onCancel: () => void;
+  onSubmitted: (form: TBooking) => void;
   className?: string;
 };
 
-const BookingForm = ({ className = '', onCancel }: TBookingForm) => {
-  const { handleSubmit, formState: { errors }, control } = useForm<TBooking>();
+const BookingForm = ({ className = '', onCancel, onSubmitted }: TBookingForm) => {
+  const { handleSubmit, formState: { errors }, control, reset } = useForm<TBooking>();
   const { dispatch, bookings } = useBookings();
-  console.log(bookings);
 
   const onSubmit = (form: TBooking) => {
     dispatch({ type: 'ADD', payload: form });
+    reset();
+    onSubmitted(form);
+  };
+
+  const disableDate = (current: Dayjs) => {
+    const isPreviousDates = current < dayjs().endOf('day');
+    const isOverlapping = bookings.some(booking => current.isBetween(...booking.dates, 'day', '[]'));
+
+    return isPreviousDates || isOverlapping;
   };
 
   return (
@@ -26,7 +39,7 @@ const BookingForm = ({ className = '', onCancel }: TBookingForm) => {
           control={control}
           rules={{ required: 'This field is required' }}
           name="property"
-          render={({ field: { onChange } }) => (
+          render={({ field: { onChange, value } }) => (
             <InputLabel
               label="Property Name"
               error={errors?.property?.message as string}
@@ -34,6 +47,7 @@ const BookingForm = ({ className = '', onCancel }: TBookingForm) => {
               <Input
                 placeholder="Property name"
                 onChange={onChange}
+                value={value}
                 status={errors.property && 'error'}
               />
             </InputLabel>
@@ -43,12 +57,17 @@ const BookingForm = ({ className = '', onCancel }: TBookingForm) => {
           rules={{ required: 'This field is required' }}
           control={control}
           name='dates'
-          render={({ field: { onChange }, fieldState: { error } }) => (
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
             <InputLabel
               label="Booking Dates"
               error={error?.message as string}
             >
-              <DatePicker.RangePicker onChange={onChange} status={error && 'error'} />
+              <DatePicker.RangePicker
+                onChange={onChange}
+                status={error && 'error'}
+                disabledDate={disableDate}
+                value={value}
+              />
             </InputLabel>
           )}
         />

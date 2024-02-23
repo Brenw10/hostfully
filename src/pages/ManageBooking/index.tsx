@@ -8,7 +8,11 @@ const ManageBookingPage = () => {
 
   return (
     <BaseLayout>
-      <BookingForm className={styles.container} onCancel={() => navigate(-1)} />
+      <BookingForm
+        className={styles.container}
+        onCancel={() => navigate(-1)}
+        onSubmitted={() => navigate(-1)}
+      />
     </BaseLayout>
   );
 };
