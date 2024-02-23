@@ -7,15 +7,9 @@ export const COLUMNS = [
     dataIndex: 'property',
   },
   {
-    title: 'Start date',
-    key: 'startDate',
+    title: 'Date',
+    key: 'dates',
     dataIndex: 'dates',
-    render: (dates: TBookingDates) => dates[0].format('MM/DD/YYYY'),
-  },
-  {
-    title: 'End date',
-    key: 'endDate',
-    dataIndex: 'dates',
-    render: (dates: TBookingDates) => dates[1].format('MM/DD/YYYY'),
+    render: (dates: TBookingDates) => `${dates[0].format('MM/DD/YYYY')} - ${dates[1].format('MM/DD/YYYY')}`,
   },
 ];

@@ -1,38 +1,57 @@
-import { Space, Table } from "antd";
+import { Button, Modal, Space, Table } from "antd";
 import { useBookings } from "../BookingsProvider/context";
 import { COLUMNS } from "./constants";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { TBooking, TBookingDates } from "../types";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 type TBookingTable = {
   className?: string;
 };
 
 const BookingTable = ({ className = '' }: TBookingTable) => {
-  const { bookings } = useBookings();
-
+  const { bookings, dispatch } = useBookings();
+  const navigate = useNavigate();
+  const [deleteBooking, setDeleteBooking] = useState<TBooking | null>(null);
   const dataSource = bookings.map((booking) => ({ key: booking.id, ...booking }));
+
+  const onDelete = () => {
+    dispatch({ type: 'REMOVE', payload: deleteBooking! });
+    setDeleteBooking(null);
+  };
 
   const actions = {
     title: 'Action',
     key: 'action',
-    render: () => (
+    render: (_: TBookingDates, record: TBooking) => (
       <Space size="middle">
-        <a>
+        <Button type="link" size="small" onClick={() => navigate('/manage-booking')}>
           <EditOutlined />
-        </a>
-        <a>
+        </Button>
+        <Button type="link" size="small" onClick={() => setDeleteBooking(record)}>
           <DeleteOutlined />
-        </a>
+        </Button>
       </Space>
     ),
   };
 
   return (
-    <Table
-      className={className}
-      columns={[...COLUMNS, actions]}
-      dataSource={dataSource}
-    />
+    <>
+      <Table
+        className={className}
+        columns={[...COLUMNS, actions]}
+        dataSource={dataSource}
+      />
+      <Modal
+        title="Confirm your action"
+        open={Boolean(deleteBooking)}
+        onOk={onDelete}
+        onCancel={() => setDeleteBooking(null)}
+      >
+        <p>Are you sure you want to delete your booking on <strong>{deleteBooking?.property}?</strong></p>
+      </Modal>
+    </>
   )
 };
 
