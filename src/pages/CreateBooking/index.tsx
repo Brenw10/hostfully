@@ -3,7 +3,7 @@ import * as styles from './styles.css';
 import BookingForm from "../../booking/BookingForm";
 import { useNavigate } from "react-router-dom";
 
-const ManageBookingPage = () => {
+const CreateBookingPage = () => {
   const navigate = useNavigate();
 
   return (
@@ -17,4 +17,4 @@ const ManageBookingPage = () => {
   );
 };
 
-export default ManageBookingPage;
+export default CreateBookingPage;

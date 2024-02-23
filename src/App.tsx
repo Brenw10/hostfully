@@ -1,13 +1,13 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import HomePage from "./pages/Home";
 import NotFoundPage from "./pages/NotFound";
-import ManageBookingPage from "./pages/ManageBooking";
+import CreateBooking from "./pages/CreateBooking";
 import ThemeProvider from "./providers/ThemeProvider";
 import BookingsProvider from "./booking/BookingsProvider";
 
 const router = createBrowserRouter([
   { path: '/', element: <HomePage /> },
-  { path: '/manage-booking', element: <ManageBookingPage /> },
+  { path: '/booking', element: <CreateBooking /> },
   { path: '*', element: <NotFoundPage /> },
 ]);
 

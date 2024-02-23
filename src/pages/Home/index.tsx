@@ -11,7 +11,7 @@ const HomePage = () => {
     <BaseLayout>
       <Flex vertical gap='middle'>
         <Flex vertical align="flex-end">
-          <Button type="primary" onClick={() => navigate('/manage-booking')}>
+          <Button type="primary" onClick={() => navigate('/booking')}>
             Create a booking
           </Button>
         </Flex>

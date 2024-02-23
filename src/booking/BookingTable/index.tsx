@@ -27,7 +27,7 @@ const BookingTable = ({ className = '' }: TBookingTable) => {
     key: 'action',
     render: (_: TBookingDates, record: TBooking) => (
       <Space size="middle">
-        <Button type="link" size="small" onClick={() => navigate('/manage-booking')}>
+        <Button type="link" size="small" onClick={() => navigate('/booking')}>
           <EditOutlined />
         </Button>
         <Button type="link" size="small" onClick={() => setDeleteBooking(record)}>
