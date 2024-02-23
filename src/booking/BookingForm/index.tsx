@@ -7,9 +7,10 @@ import InputLabel from "../../components/InputLabel";
 
 type TBookingForm = {
   onCancel: () => void;
+  className?: string;
 };
 
-const BookingForm = ({ onCancel }: TBookingForm) => {
+const BookingForm = ({ className = '', onCancel }: TBookingForm) => {
   const { handleSubmit, formState: { errors }, control } = useForm<TBooking>();
   const { dispatch, bookings } = useBookings();
   console.log(bookings);
@@ -19,7 +20,7 @@ const BookingForm = ({ onCancel }: TBookingForm) => {
   };
 
   return (
-    <Card title='Create a booking' classNames={{ header: styles.titleContainer }}>
+    <Card title='Create a booking' className={className} classNames={{ header: styles.titleContainer }}>
       <Flex vertical gap='middle'>
         <Controller
           control={control}
