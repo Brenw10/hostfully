@@ -44,7 +44,7 @@ const BookingForm = ({ className = '', onCancel, onSubmitted, booking }: TBookin
 
   return (
     <Card
-      title='Create a booking'
+      title={booking ? `Editing booking: ${booking.property}` : 'Create a booking'}
       className={`${styles.container} ${className}`}
       classNames={{ header: styles.titleContainer }}
     >
