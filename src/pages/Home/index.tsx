@@ -9,12 +9,14 @@ const HomePage = () => {
 
   return (
     <BaseLayout>
-      <Flex vertical align="flex-end">
-        <Button type="primary" onClick={() => navigate('/manage-booking')}>
-          Create a booking
-        </Button>
+      <Flex vertical gap='middle'>
+        <Flex vertical align="flex-end">
+          <Button type="primary" onClick={() => navigate('/manage-booking')}>
+            Create a booking
+          </Button>
+        </Flex>
+        <BookingTable className={styles.container} />
       </Flex>
-      <BookingTable className={styles.container} />
     </BaseLayout>
   );
 };
