@@ -14,10 +14,12 @@ type TBookingForm = {
   onCancel: () => void;
   onSubmitted: (form: TBooking) => void;
   className?: string;
+  booking?: TBooking;
 };
 
-const BookingForm = ({ className = '', onCancel, onSubmitted }: TBookingForm) => {
-  const { handleSubmit, formState: { errors }, control, reset } = useForm<TBooking>();
+const BookingForm = ({ className = '', onCancel, onSubmitted, booking }: TBookingForm) => {
+  const { handleSubmit, formState: { errors }, control, reset }
+    = useForm<TBooking>({ defaultValues: booking });
   const { dispatch, bookings } = useBookings();
 
   const onSubmit = (form: TBooking) => {
