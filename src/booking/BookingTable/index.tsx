@@ -5,6 +5,7 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { TBooking, TBookingDates } from "../types";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import * as styles from './styles.css';
 
 type TBookingTable = {
   className?: string;
@@ -39,7 +40,7 @@ const BookingTable = ({ className = '' }: TBookingTable) => {
   return (
     <>
       <Table
-        className={className}
+        className={`${styles.table} ${className}`}
         columns={[...COLUMNS, actions]}
         dataSource={dataSource}
       />
