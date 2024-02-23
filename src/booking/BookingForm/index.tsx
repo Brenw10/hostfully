@@ -3,6 +3,7 @@ import * as styles from './styles.css';
 import { Controller, useForm } from "react-hook-form";
 import UnderFieldError from "../../components/UnderFieldError";
 import { TBooking } from "../types";
+import { useBookings } from "../BookingsProvider/context";
 
 type TBookingForm = {
   onCancel: () => void;
@@ -10,9 +11,11 @@ type TBookingForm = {
 
 const BookingForm = ({ onCancel }: TBookingForm) => {
   const { handleSubmit, formState: { errors }, control } = useForm<TBooking>();
+  const { dispatch, bookings } = useBookings();
+  console.log(bookings);
 
   const onSubmit = (form: TBooking) => {
-    console.log(form)
+    dispatch({ type: 'ADD', payload: form });
   };
 
   return (

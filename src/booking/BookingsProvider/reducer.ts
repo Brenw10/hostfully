@@ -7,9 +7,12 @@ export type TAction = {
 };
 
 const BookingsReducer = (state: TBooking[], action: TAction) => {
-  console.log(state, action)
-
-  return state;
+  switch (action.type) {
+    case ACTIONS.ADD:
+      return [...state, action.payload];
+    default:
+      return state;
+  }
 }
 
 export default BookingsReducer;
