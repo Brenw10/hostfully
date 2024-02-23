@@ -3,6 +3,7 @@ import HomePage from "./pages/Home";
 import NotFoundPage from "./pages/NotFound";
 import ManageBookingPage from "./pages/ManageBooking";
 import ThemeProvider from "./providers/ThemeProvider";
+import BookingsProvider from "./booking/BookingsProvider";
 
 const router = createBrowserRouter([
   { path: '/', element: <HomePage /> },
@@ -14,7 +15,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <ThemeProvider>
-      <RouterProvider router={router} />
+      <BookingsProvider>
+        <RouterProvider router={router} />
+      </BookingsProvider>
     </ThemeProvider>
   );
 }
