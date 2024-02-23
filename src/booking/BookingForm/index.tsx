@@ -34,7 +34,11 @@ const BookingForm = ({ className = '', onCancel, onSubmitted }: TBookingForm) =>
   };
 
   return (
-    <Card title='Create a booking' className={className} classNames={{ header: styles.titleContainer }}>
+    <Card
+      title='Create a booking'
+      className={`${styles.container} ${className}`}
+      classNames={{ header: styles.titleContainer }}
+    >
       <Flex vertical gap='middle'>
         <Controller
           control={control}
