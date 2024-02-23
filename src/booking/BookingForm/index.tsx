@@ -6,6 +6,7 @@ import { useBookings } from "../BookingsProvider/context";
 import InputLabel from "../../components/InputLabel";
 import dayjs, { Dayjs } from "dayjs";
 import isBetween from 'dayjs/plugin/isBetween';
+import { nanoid } from "nanoid";
 
 dayjs.extend(isBetween);
 
@@ -20,7 +21,7 @@ const BookingForm = ({ className = '', onCancel, onSubmitted }: TBookingForm) =>
   const { dispatch, bookings } = useBookings();
 
   const onSubmit = (form: TBooking) => {
-    dispatch({ type: 'ADD', payload: form });
+    dispatch({ type: 'ADD', payload: { ...form, id: nanoid() } });
     reset();
     onSubmitted(form);
   };
