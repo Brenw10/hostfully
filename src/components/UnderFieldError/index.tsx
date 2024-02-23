@@ -1,15 +1,21 @@
-import { Typography } from "antd";
+import { Flex, Typography } from "antd";
 import * as styles from './styles.css';
 
 type TUnderFieldError = {
-  message: string;
+  children: React.ReactNode;
+  message?: string;
 };
 
-const UnderFieldError = ({ message }: TUnderFieldError) => {
+const UnderFieldError = ({ children, message }: TUnderFieldError) => {
   return (
-    <Typography.Text className={styles.text}>
-      {message}
-    </Typography.Text>
+    <Flex vertical>
+      {children}
+      {message && (
+        <Typography.Text className={styles.text}>
+          {message}
+        </Typography.Text>
+      )}
+    </Flex>
   );
 };
 
