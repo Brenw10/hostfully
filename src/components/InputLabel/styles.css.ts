@@ -1,6 +1,10 @@
 import { style } from "@vanilla-extract/css";
 
-export const text = style({
+export const label = style({
+  fontSize: '0.8rem',
+});
+
+export const error = style({
   color: '#ff4d4f',
   fontSize: '0.8rem',
 });

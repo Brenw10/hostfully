@@ -1,9 +1,9 @@
 import { Button, Card, DatePicker, Flex, Input } from "antd";
 import * as styles from './styles.css';
 import { Controller, useForm } from "react-hook-form";
-import UnderFieldError from "../../components/UnderFieldError";
 import { TBooking } from "../types";
 import { useBookings } from "../BookingsProvider/context";
+import InputLabel from "../../components/InputLabel";
 
 type TBookingForm = {
   onCancel: () => void;
@@ -26,13 +26,16 @@ const BookingForm = ({ onCancel }: TBookingForm) => {
           rules={{ required: 'This field is required' }}
           name="property"
           render={({ field: { onChange } }) => (
-            <UnderFieldError message={errors?.property?.message as string}>
+            <InputLabel
+              label="Property Name"
+              error={errors?.property?.message as string}
+            >
               <Input
                 placeholder="Property name"
                 onChange={onChange}
                 status={errors.property && 'error'}
               />
-            </UnderFieldError>
+            </InputLabel>
           )}
         />
         <Controller
@@ -40,9 +43,12 @@ const BookingForm = ({ onCancel }: TBookingForm) => {
           control={control}
           name='dates'
           render={({ field: { onChange }, fieldState: { error } }) => (
-            <UnderFieldError message={error?.message as string}>
+            <InputLabel
+              label="Booking Dates"
+              error={error?.message as string}
+            >
               <DatePicker.RangePicker onChange={onChange} status={error && 'error'} />
-            </UnderFieldError>
+            </InputLabel>
           )}
         />
         <Flex gap='middle'>
