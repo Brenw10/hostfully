@@ -77,6 +77,7 @@ const BookingForm = ({ className = '', onCancel, onSubmitted, booking }: TBookin
               error={error?.message as string}
             >
               <DatePicker.RangePicker
+                popupClassName={styles.datePickerPopUp}
                 onChange={onChange}
                 status={error && 'error'}
                 disabledDate={disableDate}
