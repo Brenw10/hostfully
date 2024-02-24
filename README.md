@@ -1,30 +1,23 @@
-# React + TypeScript + Vite
+# Hostfully Test
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
+The idea of this project is to have a website where we can register bookings.
 
-Currently, two official plugins are available:
+This project allows users to read, create, update and delete their bookings, this project also contains some validations to avoid duplicating bookings during the same dates.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## How to install the project
+First, make sure you have the latest node and npm versions installed.
 
-## Expanding the ESLint configuration
+Second, execute `npm install` to install all necessary packages.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## How to run the dev mode
+Execute in your terminal the command:
+`npm run dev`
 
-- Configure the top-level `parserOptions` property like this:
+## Architecture
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+To store the state globally this project is using context + reducers to manage bookings data.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+To validate the booking correctly this project is using the react hook form library to validate and also using built-in props provided by the Ant Design Library + day.js to avoid duplicated dates.
+
+This project is using Ant Design to quickly build beatiful screens and a good user experience.
