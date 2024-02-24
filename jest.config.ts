@@ -3,6 +3,6 @@ export default {
   testEnvironment: 'jest-environment-jsdom',
   transform: {
     "\\.css\\.ts$": "@vanilla-extract/jest-transform",
-    "^.+\\.tsx?$": "ts-jest"
+    "^.+\\.(ts|tsx)$": "ts-jest"
   },
 };
