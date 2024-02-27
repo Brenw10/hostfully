@@ -9,6 +9,7 @@ const PROPS_MOCK = {
   onSubmitted: jest.fn(),
 };
 
+const ON_CANCEL_SPY = jest.spyOn(PROPS_MOCK, 'onCancel');
 const ON_SUBMITTED_SPY = jest.spyOn(PROPS_MOCK, 'onSubmitted');
 
 const BOOKING_DATA = {
@@ -33,13 +34,7 @@ jest.mock('../BookingsProvider/context', () => ({
   }),
 }));
 
-describe('testing create booking form', () => {
-  it('should render create booking title', () => {
-    render(<BookingForm {...PROPS_MOCK} />);
-
-    expect(screen.getByText('Create a booking')).toBeInTheDocument();
-  });
-
+describe('testing default form', () => {
   it('should render input fields', () => {
     render(<BookingForm {...PROPS_MOCK} />);
 
@@ -47,7 +42,7 @@ describe('testing create booking form', () => {
     expect(screen.getByText('Booking Dates')).toBeInTheDocument();
   });
 
-  it('should render actiom buttons', () => {
+  it('should render action buttons', () => {
     render(<BookingForm {...PROPS_MOCK} />);
 
     expect(screen.getByText('Cancel')).toBeInTheDocument();
@@ -66,6 +61,14 @@ describe('testing create booking form', () => {
     );
   });
 
+  it('should call cancel callback', () => {
+    render(<BookingForm {...PROPS_MOCK} />);
+
+    fireEvent.click(screen.getByText('Cancel'));
+
+    expect(ON_CANCEL_SPY).toHaveBeenCalled();
+  });
+
   it('should progress when fields have data', async () => {
     render(<BookingForm {...PROPS_MOCK} />);
 
@@ -78,6 +81,14 @@ describe('testing create booking form', () => {
     fireEvent.click(screen.getByText('Submit'));
 
     await waitFor(() => expect(ON_SUBMITTED_SPY).toHaveBeenCalledWith(BOOKING_DATA));
+  });
+});
+
+describe('testing create booking form', () => {
+  it('should render create booking title', () => {
+    render(<BookingForm {...PROPS_MOCK} />);
+
+    expect(screen.getByText('Create a booking')).toBeInTheDocument();
   });
 
   it('should not allow dates previously added', async () => {
