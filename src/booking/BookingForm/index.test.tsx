@@ -20,6 +20,15 @@ const BOOKING_DATA = {
   ],
 } as TBooking;
 
+const EXISTING_BOOKING_DATA = {
+  id: '2',
+  property: 'hotel 2',
+  dates: [
+    dayjs().add(7, 'day').startOf('day'),
+    dayjs().add(10, 'day').startOf('day'),
+  ],
+} as TBooking;
+
 const selectDateRange = (dates: TBookingDates) => {
   fireEvent.click(screen.getByPlaceholderText('Start date'));
   fireEvent.click(screen.getAllByTitle(dates[0].format('YYYY-MM-DD'))[0]);
@@ -70,6 +79,9 @@ describe('testing default form', () => {
   });
 
   it('should progress when fields have data', async () => {
+    jest.spyOn(context, 'useBookings')
+      .mockImplementation(() => ({ bookings: [EXISTING_BOOKING_DATA], dispatch: jest.fn() }));
+
     render(<BookingForm {...PROPS_MOCK} />);
 
     const propertyInput = screen.getByPlaceholderText('Property name');
@@ -93,18 +105,36 @@ describe('testing create booking form', () => {
 
   it('should not allow dates previously added', async () => {
     jest.spyOn(context, 'useBookings')
-      .mockImplementation(() => ({ bookings: [BOOKING_DATA], dispatch: jest.fn() }));
+      .mockImplementation(() => ({ bookings: [EXISTING_BOOKING_DATA], dispatch: jest.fn() }));
 
     render(<BookingForm {...PROPS_MOCK} />);
 
     fireEvent.click(screen.getByPlaceholderText('Start date'));
 
-    selectDateRange(BOOKING_DATA.dates);
+    selectDateRange(EXISTING_BOOKING_DATA.dates);
 
     fireEvent.click(screen.getByText('Submit'));
 
     await waitFor(() =>
       expect(screen.getAllByText('This field is required').length).toBe(2)
     );
+  });
+});
+
+describe('testing edit booking form', () => {
+  beforeEach(() => {
+    jest.spyOn(context, 'useBookings')
+      .mockImplementation(() => ({ bookings: [EXISTING_BOOKING_DATA], dispatch: jest.fn() }));
+  });
+
+  it('should render booking being edited', () => {
+    render(<BookingForm {...PROPS_MOCK} booking={EXISTING_BOOKING_DATA} />);
+
+    expect(screen.getByPlaceholderText('Property name'))
+      .toHaveValue(EXISTING_BOOKING_DATA.property);
+    expect(screen.getByPlaceholderText('Start date'))
+      .toHaveValue(EXISTING_BOOKING_DATA.dates[0].format('YYYY-MM-DD'));
+    expect(screen.getByPlaceholderText('End date'))
+      .toHaveValue(EXISTING_BOOKING_DATA.dates[1].format('YYYY-MM-DD'));
   });
 });
