@@ -31,7 +31,7 @@ const BookingTable = ({ className = '' }: TBookingTable) => {
           type="link"
           size="small"
           onClick={() => navigate(`/booking/${record.id}`)}
-          aria-label="Edit button"
+          aria-label="Edit"
         >
           <EditOutlined />
         </Button>
@@ -39,7 +39,7 @@ const BookingTable = ({ className = '' }: TBookingTable) => {
           type="link"
           size="small"
           onClick={() => setDeleteBooking(record)}
-          aria-label="Delete button"
+          aria-label="Delete"
         >
           <DeleteOutlined />
         </Button>
