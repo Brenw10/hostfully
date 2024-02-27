@@ -139,6 +139,13 @@ describe('testing edit booking form', () => {
       .mockImplementation(() => ({ bookings: [EXISTING_BOOKING_DATA], dispatch: jest.fn() }));
   });
 
+  it('should render edit booking title', () => {
+    render(<BookingForm {...PROPS_MOCK} booking={EXISTING_BOOKING_DATA} />);
+
+    expect(screen.getByText(`Editing booking: ${EXISTING_BOOKING_DATA.property}`))
+      .toBeInTheDocument();
+  });
+
   it('should render booking being edited', () => {
     render(<BookingForm {...PROPS_MOCK} booking={EXISTING_BOOKING_DATA} />);
 
