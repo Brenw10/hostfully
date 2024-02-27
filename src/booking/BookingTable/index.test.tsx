@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import BookingTable from ".";
 import '../../mocks/matchMedia.mock';
 import dayjs from "dayjs";
@@ -46,5 +46,16 @@ describe('testing booking table', () => {
 
     expect(screen.getByLabelText('Edit')).toBeInTheDocument();
     expect(screen.getByLabelText('Delete')).toBeInTheDocument();
+  });
+
+  it('should show delete modal when clicking on delete icon', () => {
+    render(<BookingTable />);
+
+    fireEvent.click(screen.getByLabelText('Delete'));
+
+    expect(screen.getByText('Confirm your action')).toBeInTheDocument();
+    expect(
+      screen.getByText(`Are you sure you want to delete your booking on`, { exact: false }).textContent
+    ).toEqual(`Are you sure you want to delete your booking on ${BOOKINGS[0].property}?`);
   });
 });
