@@ -3,7 +3,7 @@ import Header from '.';
 import { BrowserRouter } from 'react-router-dom';
 
 describe('testing header is displaying correctly', () => {
-  it('should contain logo link', () => {
+  it('should render logo link', () => {
     const { getByText } = render(
       <BrowserRouter>
         <Header />

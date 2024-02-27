@@ -7,8 +7,8 @@ describe('testing input label is displaying props correctly', () => {
       <InputLabel label='Test title'>Test children</InputLabel>
     );
 
-    getByText('Test title');
-    getByText('Test children');
+    expect(getByText('Test title')).toBeInTheDocument();
+    expect(getByText('Test children')).toBeInTheDocument();
   });
 
   it('should show error message when sent', () => {
@@ -16,6 +16,6 @@ describe('testing input label is displaying props correctly', () => {
       <InputLabel label='Test title' error='Test error'>Test children</InputLabel>
     );
 
-    getByText('Test error');
+    expect(getByText('Test error')).toBeInTheDocument();
   });
 });

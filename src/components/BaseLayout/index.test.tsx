@@ -3,7 +3,7 @@ import BaseLayout from '.';
 import { BrowserRouter } from 'react-router-dom';
 
 describe('testing base layout is displaying correctly', () => {
-  it('should header and content', () => {
+  it('should render header and content', () => {
     const { getByText } = render(
       <BrowserRouter>
         <BaseLayout>
@@ -12,7 +12,7 @@ describe('testing base layout is displaying correctly', () => {
       </BrowserRouter>
     );
 
-    getByText('Hostfully');
-    getByText('Children content');
+    expect(getByText('Hostfully')).toBeInTheDocument();
+    expect(getByText('Children content')).toBeInTheDocument();
   });
 });
