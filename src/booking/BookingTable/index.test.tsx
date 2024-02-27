@@ -14,10 +14,11 @@ const BOOKING = {
 } as TBooking;
 
 const USE_BOOKINGS_MOCK = { bookings: [BOOKING], dispatch: jest.fn() };
+const NAVIGATE_MOCK = jest.fn();
 
 jest.mock('react-router-dom', () => ({
   __esModule: true,
-  useNavigate: jest.fn(),
+  useNavigate: () => NAVIGATE_MOCK,
 }));
 
 jest.mock('../BookingsProvider/context', () => ({
@@ -83,5 +84,13 @@ describe('testing booking table', () => {
     expect(dispatchSpy).toHaveBeenCalledWith(
       expect.objectContaining({ payload: expect.objectContaining(BOOKING) }),
     );
+  });
+
+  it('should allow editing a booking', () => {
+    render(<BookingTable />);
+
+    fireEvent.click(screen.getByLabelText('Edit'));
+
+    expect(NAVIGATE_MOCK).toHaveBeenCalledWith(`/booking/${BOOKING.id}`);
   });
 });
