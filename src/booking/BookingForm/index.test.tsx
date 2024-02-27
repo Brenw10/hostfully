@@ -94,6 +94,18 @@ describe('testing default form', () => {
 
     await waitFor(() => expect(ON_SUBMITTED_SPY).toHaveBeenCalledWith(BOOKING_DATA));
   });
+
+  it('should not allow select today', async () => {
+    render(<BookingForm {...PROPS_MOCK} />);
+
+    selectDateRange([dayjs(), dayjs()]);
+
+    fireEvent.click(screen.getByText('Submit'));
+
+    await waitFor(() =>
+      expect(screen.getAllByText('This field is required').length).toBe(2)
+    );
+  });
 });
 
 describe('testing create booking form', () => {
@@ -136,5 +148,38 @@ describe('testing edit booking form', () => {
       .toHaveValue(EXISTING_BOOKING_DATA.dates[0].format('YYYY-MM-DD'));
     expect(screen.getByPlaceholderText('End date'))
       .toHaveValue(EXISTING_BOOKING_DATA.dates[1].format('YYYY-MM-DD'));
+  });
+
+  it('should allow select dates from current booking', async () => {
+    render(<BookingForm {...PROPS_MOCK} booking={EXISTING_BOOKING_DATA} />);
+
+    const newDates = [
+      EXISTING_BOOKING_DATA.dates[0].add(1, 'day'),
+      EXISTING_BOOKING_DATA.dates[1].subtract(1, 'day'),
+    ] as TBookingDates;
+
+    selectDateRange(newDates);
+
+    fireEvent.click(screen.getByText('Submit'));
+
+    await waitFor(() =>
+      expect(ON_SUBMITTED_SPY).toHaveBeenCalledWith({ ...EXISTING_BOOKING_DATA, dates: newDates })
+    );
+  });
+
+  it('should allow change property', async () => {
+    render(<BookingForm {...PROPS_MOCK} booking={EXISTING_BOOKING_DATA} />);
+
+    const newProperty = 'test title';
+
+    const propertyInput = screen.getByPlaceholderText('Property name');
+
+    fireEvent.change(propertyInput, { target: { value: newProperty } });
+
+    fireEvent.click(screen.getByText('Submit'));
+
+    await waitFor(() =>
+      expect(ON_SUBMITTED_SPY).toHaveBeenCalledWith({ ...EXISTING_BOOKING_DATA, property: newProperty })
+    );
   });
 });
