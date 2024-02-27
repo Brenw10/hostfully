@@ -14,6 +14,10 @@ Second, execute `npm install` to install all necessary packages.
 Execute in your terminal the command:
 `npm run dev`
 
+## How to execute the tests
+Execure in your terminal the command:
+`npm run test`
+
 ## Architecture
 
 To store the state globally this project is using context + reducers to manage bookings data.
