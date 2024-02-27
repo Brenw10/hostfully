@@ -4,14 +4,14 @@ import '../../mocks/matchMedia.mock';
 import dayjs from "dayjs";
 import { TBooking } from "../types";
 
-const BOOKINGS = [{
+const BOOKING = {
   id: '1',
   property: 'hotel 1',
   dates: [
     dayjs().add(3, 'day').startOf('day'),
     dayjs().add(6, 'day').startOf('day'),
   ],
-}] as TBooking[];
+} as TBooking;
 
 jest.mock('react-router-dom', () => ({
   __esModule: true,
@@ -20,7 +20,7 @@ jest.mock('react-router-dom', () => ({
 
 jest.mock('../BookingsProvider/context', () => ({
   __esModule: true,
-  useBookings: () => ({ bookings: BOOKINGS, dispatch: jest.fn() }),
+  useBookings: () => ({ bookings: [BOOKING], dispatch: jest.fn() }),
 }));
 
 describe('testing booking table', () => {
@@ -36,9 +36,9 @@ describe('testing booking table', () => {
   it('should render bookings correctly', () => {
     render(<BookingTable />);
 
-    expect(screen.getByText(BOOKINGS[0].property)).toBeInTheDocument();
-    expect(screen.getByText(BOOKINGS[0].dates[0].format('YYYY-MM-DD'))).toBeInTheDocument();
-    expect(screen.getByText(BOOKINGS[0].dates[1].format('YYYY-MM-DD'))).toBeInTheDocument();
+    expect(screen.getByText(BOOKING.property)).toBeInTheDocument();
+    expect(screen.getByText(BOOKING.dates[0].format('YYYY-MM-DD'))).toBeInTheDocument();
+    expect(screen.getByText(BOOKING.dates[1].format('YYYY-MM-DD'))).toBeInTheDocument();
   });
 
   it('should render actions buttons', () => {
@@ -56,7 +56,7 @@ describe('testing booking table', () => {
     await waitFor(() => expect(screen.getByText('Confirm your action')).toBeVisible());
     expect(
       screen.getByText(`Are you sure you want to delete your booking on`, { exact: false }).textContent
-    ).toEqual(`Are you sure you want to delete your booking on ${BOOKINGS[0].property}?`);
+    ).toEqual(`Are you sure you want to delete your booking on ${BOOKING.property}?`);
   });
 
   it('should cancel delete modal', async () => {
