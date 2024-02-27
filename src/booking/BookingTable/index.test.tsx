@@ -13,6 +13,8 @@ const BOOKING = {
   ],
 } as TBooking;
 
+const USE_BOOKINGS_MOCK = { bookings: [BOOKING], dispatch: jest.fn() };
+
 jest.mock('react-router-dom', () => ({
   __esModule: true,
   useNavigate: jest.fn(),
@@ -20,7 +22,7 @@ jest.mock('react-router-dom', () => ({
 
 jest.mock('../BookingsProvider/context', () => ({
   __esModule: true,
-  useBookings: () => ({ bookings: [BOOKING], dispatch: jest.fn() }),
+  useBookings: () => USE_BOOKINGS_MOCK,
 }));
 
 describe('testing booking table', () => {
@@ -52,7 +54,7 @@ describe('testing booking table', () => {
     render(<BookingTable />);
 
     fireEvent.click(screen.getByLabelText('Delete'));
-    
+
     await waitFor(() => expect(screen.getByText('Confirm your action')).toBeVisible());
     expect(
       screen.getByText(`Are you sure you want to delete your booking on`, { exact: false }).textContent
@@ -67,5 +69,20 @@ describe('testing booking table', () => {
 
     fireEvent.click(screen.getByText('Cancel'));
     await waitFor(() => expect(screen.getByText('Confirm your action')).not.toBeVisible());
+  });
+
+  it('should submit delete modal', () => {
+    const dispatchSpy = jest.spyOn(USE_BOOKINGS_MOCK, 'dispatch');
+
+    render(<BookingTable />);
+
+    fireEvent.click(screen.getByLabelText('Delete'));
+
+    fireEvent.click(screen.getByText('OK'));
+
+    expect(dispatchSpy).toHaveBeenCalledWith({
+      type: 'REMOVE',
+      payload: expect.objectContaining(BOOKING),
+    });
   });
 });
