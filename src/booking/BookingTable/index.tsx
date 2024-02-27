@@ -27,10 +27,20 @@ const BookingTable = ({ className = '' }: TBookingTable) => {
     key: 'actions',
     render: (_: TBookingDates, record: TBooking) => (
       <Space size="middle">
-        <Button type="link" size="small" onClick={() => navigate(`/booking/${record.id}`)}>
+        <Button
+          type="link"
+          size="small"
+          onClick={() => navigate(`/booking/${record.id}`)}
+          aria-label="Edit button"
+        >
           <EditOutlined />
         </Button>
-        <Button type="link" size="small" onClick={() => setDeleteBooking(record)}>
+        <Button
+          type="link"
+          size="small"
+          onClick={() => setDeleteBooking(record)}
+          aria-label="Delete button"
+        >
           <DeleteOutlined />
         </Button>
       </Space>
