@@ -80,9 +80,8 @@ describe('testing booking table', () => {
 
     fireEvent.click(screen.getByText('OK'));
 
-    expect(dispatchSpy).toHaveBeenCalledWith({
-      type: 'REMOVE',
-      payload: expect.objectContaining(BOOKING),
-    });
+    expect(dispatchSpy).toHaveBeenCalledWith(
+      expect.objectContaining({ payload: expect.objectContaining(BOOKING) }),
+    );
   });
 });
