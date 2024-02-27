@@ -95,10 +95,10 @@ describe('testing default form', () => {
     await waitFor(() => expect(ON_SUBMITTED_SPY).toHaveBeenCalledWith(BOOKING_DATA));
   });
 
-  it('should not allow select today', async () => {
+  it('should not allow select previous date', async () => {
     render(<BookingForm {...PROPS_MOCK} />);
 
-    selectDateRange([dayjs(), dayjs()]);
+    selectDateRange([dayjs().subtract(5, 'day'), dayjs()]);
 
     fireEvent.click(screen.getByText('Submit'));
 
