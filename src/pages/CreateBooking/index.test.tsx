@@ -1,12 +1,12 @@
 import { render, screen } from "@testing-library/react";
-import NotFoundPage from ".";
+import CreateBookingPage from ".";
 import { BrowserRouter } from "react-router-dom";
 
-describe('testing not found page', () => {
+describe('testing create booking page', () => {
   beforeEach(() => {
     render(
       <BrowserRouter>
-        <NotFoundPage />
+        <CreateBookingPage />
       </BrowserRouter>
     );
   });
@@ -15,7 +15,7 @@ describe('testing not found page', () => {
     expect(screen.getByText('Hostfully')).toBeInTheDocument();
   });
 
-  it('should render error message', () => {
-    expect(screen.getByText('Sorry, this page does not exist.')).toBeInTheDocument();
-  })
+  it('it should render booking form', () => {
+    expect(screen.getByText('Create a booking')).toBeInTheDocument();
+  });
 });
