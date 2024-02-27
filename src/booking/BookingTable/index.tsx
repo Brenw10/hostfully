@@ -23,8 +23,8 @@ const BookingTable = ({ className = '' }: TBookingTable) => {
   };
 
   const actions = {
-    title: 'Action',
-    key: 'action',
+    title: 'Actions',
+    key: 'actions',
     render: (_: TBookingDates, record: TBooking) => (
       <Space size="middle">
         <Button type="link" size="small" onClick={() => navigate(`/booking/${record.id}`)}>
