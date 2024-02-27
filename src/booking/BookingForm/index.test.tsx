@@ -65,9 +65,7 @@ describe('testing default form', () => {
 
     submitButton.click();
 
-    await waitFor(() =>
-      expect(screen.getAllByText('This field is required').length).toBe(2)
-    );
+    await expect(screen.findAllByText('This field is required')).resolves.toHaveLength(2);
   });
 
   it('should call cancel callback', () => {
@@ -102,9 +100,7 @@ describe('testing default form', () => {
 
     fireEvent.click(screen.getByText('Submit'));
 
-    await waitFor(() =>
-      expect(screen.getAllByText('This field is required').length).toBe(2)
-    );
+    await expect(screen.findAllByText('This field is required')).resolves.toHaveLength(2);
   });
 });
 
