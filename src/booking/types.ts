@@ -3,7 +3,7 @@ import { Dayjs } from "dayjs";
 export type TBookingDates = [Dayjs, Dayjs];
 
 export type TBooking = {
-  id: string;
+  id?: string;
   property: string;
   dates: TBookingDates;
 };
